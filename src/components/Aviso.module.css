@@ -1,0 +1,25 @@
+.aviso {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.info {
+  background: var(--info-fondo);
+  border-color: var(--info-borde);
+  color: var(--info-texto);
+}
+
+.exito {
+  background: var(--exito-fondo);
+  border-color: var(--exito-borde);
+  color: var(--exito-texto);
+}
+
+.error {
+  background: var(--error-fondo);
+  border-color: var(--error-borde);
+  color: var(--error-texto);
+}
