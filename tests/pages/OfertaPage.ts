@@ -30,15 +30,15 @@ export class OfertaPage extends BasePage {
   }
 
   async buscar(texto: string) {
-    await (await this.elemento(this.buscador, 'campo para buscar materias por nombre')).fill(texto);
+    await this.buscador.fill(texto);
   }
 
   async filtrarPorCuatrimestre(opcion: string) {
-    await (await this.elemento(this.filtroCuatrimestre, 'selector para filtrar por cuatrimestre')).selectOption({ label: opcion });
+    await this.filtroCuatrimestre.selectOption({ label: opcion });
   }
 
   async abrirMateria(nombre: string) {
     const link = this.tarjeta(nombre).getByRole('link', { name: 'Ver comisiones' });
-    await (await this.elemento(link, `link "Ver comisiones" de la materia ${nombre}`)).click();
+    await link.click();
   }
 }
