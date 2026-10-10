@@ -1,5 +1,4 @@
 import { defineConfig, devices } from '@playwright/test';
-import 'dotenv/config';
 
 const CI = !!process.env.CI;
 

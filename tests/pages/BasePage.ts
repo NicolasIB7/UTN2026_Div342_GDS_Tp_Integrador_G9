@@ -1,5 +1,4 @@
 import type { Locator, Page } from '@playwright/test';
-import { resolver } from '../support/self-healing';
 
 export abstract class BasePage {
   readonly encabezado: Locator;
@@ -15,20 +14,15 @@ export abstract class BasePage {
     this.botonCerrarSesion = page.getByRole('button', { name: 'Cerrar sesión' });
   }
 
-  /** Devuelve el locator, o uno reparado por el LLM si está activo el self-healing. */
-  protected elemento(locator: Locator, descripcion: string) {
-    return resolver(this.page, locator, descripcion);
-  }
-
   async irAInscripciones() {
-    await (await this.elemento(this.linkInscripciones, 'link del menú a Mis inscripciones')).click();
+    await this.linkInscripciones.click();
   }
 
   async irAOferta() {
-    await (await this.elemento(this.linkOferta, 'link del menú a la oferta de materias')).click();
+    await this.linkOferta.click();
   }
 
   async cerrarSesion() {
-    await (await this.elemento(this.botonCerrarSesion, 'botón para cerrar sesión')).click();
+    await this.botonCerrarSesion.click();
   }
 }

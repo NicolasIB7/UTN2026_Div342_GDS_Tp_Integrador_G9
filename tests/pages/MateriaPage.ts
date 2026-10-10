@@ -37,8 +37,7 @@ export class MateriaPage extends BasePage {
   }
 
   async inscribirseEn(codigo: string) {
-    const boton = await this.elemento(this.botonInscribirme(codigo), `botón "Inscribirme" de la comisión ${codigo}`);
-    await boton.click();
-    await (await this.elemento(this.botonConfirmar, 'botón que confirma la inscripción en el diálogo')).click();
+    await this.botonInscribirme(codigo).click();
+    await this.botonConfirmar.click();
   }
 }
