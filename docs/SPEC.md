@@ -87,8 +87,4 @@ Cada `push` o Pull Request a `main` dispara el workflow [`.github/workflows/play
 
 - **Reporte HTML**: generado en `playwright-report/` en cada corrida (local o CI); se abre con `npm run report` o desde el link de Pages de arriba.
 - **Trace Viewer**: se graba en el primer reintento (`trace: 'on-first-retry'`). Para un fallo en CI, se baja el trace del artifact `test-results` y se abre arrastrándolo en [trace.playwright.dev](https://trace.playwright.dev) (no requiere instalar nada local) o con `npx playwright show-trace <archivo>.zip`.
-- **Regresión visual**: TC-07 incluye una captura (`toHaveScreenshot`) de la lista de materias filtrada por 4° cuatrimestre. El reporte HTML muestra el diff esperado/actual si algo cambia visualmente.
-
-  > La imagen base se genera en el mismo sistema donde se compara. Si se corre `--update-snapshots` en Windows/macOS localmente y después se compara en el runner de CI (Ubuntu), puede fallar por diferencias de renderizado de fuentes aunque la UI esté bien — no es un bug de la app. Conviene generar la imagen base corriendo la suite dentro del contenedor oficial de Playwright (mismo SO que usa CI) o dejar que la primera corrida en CI falle, bajar la captura que generó y commitearla como base.
-
 - **Corrida de referencia**: _completar con el link al run de Actions de la entrega final (Actions → seleccionar el run → copiar URL) una vez hecho el último push antes de entregar_.

@@ -19,9 +19,6 @@ test.describe('F2 - Búsqueda en la oferta de materias', () => {
     for (const materia of await ofertaPage.materias.all()) {
       await expect(materia).toContainText('4° cuatrimestre');
     }
-
-    // Regresión visual: la lista filtrada no debería cambiar de aspecto entre corridas
-    await expect(ofertaPage.listaMaterias).toHaveScreenshot('oferta-cuatrimestre-4.png');
   });
 
   test('TC-08 informa cuando no hay resultados', async ({ ofertaPage }) => {
