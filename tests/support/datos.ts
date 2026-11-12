@@ -11,4 +11,6 @@ export const MATERIAS = {
   analisisDatos: 'Introducción al Análisis de Datos',
   legislacion: 'Legislación',
   gestionDesarrollo: 'Gestión de Desarrollo de Software',
+  // Ya aprobada por el alumno de prueba: no debe aparecer en la oferta (RF-06)
+  materiaAprobada: 'Matemática',
 };

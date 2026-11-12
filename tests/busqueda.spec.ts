@@ -19,10 +19,20 @@ test.describe('F2 - Búsqueda en la oferta de materias', () => {
     for (const materia of await ofertaPage.materias.all()) {
       await expect(materia).toContainText('4° cuatrimestre');
     }
+
+    // Regresión visual: la lista filtrada no debería cambiar de aspecto entre corridas
+    await expect(ofertaPage.listaMaterias).toHaveScreenshot('oferta-cuatrimestre-4.png');
   });
 
   test('TC-08 informa cuando no hay resultados', async ({ ofertaPage }) => {
     await ofertaPage.buscar('Física');
+
+    await expect(ofertaPage.sinResultados).toBeVisible();
+    await expect(ofertaPage.materias).toHaveCount(0);
+  });
+
+  test('TC-14 no ofrece una materia que el alumno ya tiene aprobada', async ({ ofertaPage }) => {
+    await ofertaPage.buscar(MATERIAS.materiaAprobada);
 
     await expect(ofertaPage.sinResultados).toBeVisible();
     await expect(ofertaPage.materias).toHaveCount(0);

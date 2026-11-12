@@ -5,6 +5,7 @@ export class OfertaPage extends BasePage {
   readonly titulo: Locator;
   readonly buscador: Locator;
   readonly filtroCuatrimestre: Locator;
+  readonly listaMaterias: Locator;
   readonly materias: Locator;
   readonly nombresMaterias: Locator;
   readonly sinResultados: Locator;
@@ -14,7 +15,8 @@ export class OfertaPage extends BasePage {
     this.titulo = page.getByRole('heading', { name: 'Oferta de materias', level: 1 });
     this.buscador = page.getByLabel('Buscar materia');
     this.filtroCuatrimestre = page.getByLabel('Cuatrimestre');
-    this.materias = page.getByRole('list', { name: 'Materias disponibles' }).getByRole('listitem');
+    this.listaMaterias = page.getByRole('list', { name: 'Materias disponibles' });
+    this.materias = this.listaMaterias.getByRole('listitem');
     this.nombresMaterias = this.materias.getByRole('heading');
     this.sinResultados = page.getByText('No se encontraron materias');
   }

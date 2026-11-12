@@ -51,6 +51,7 @@ Legajo `103980` (Nicolás Bouvet). Aprobó todas las materias de 1°, 2° y 3° 
 | TC-11 | F3 | Faltan dos correlativas | Se muestra "No cumplís las correlativas: Organización Empresarial, Metodología de Sistemas I sin aprobar" |
 | TC-12 | F3 | Comisión sin cupo | La materia aparece con la etiqueta "Sin cupo" y en el detalle todas sus comisiones tienen el botón deshabilitado |
 | TC-13 | F3 | Baja de inscripción | Se confirma la baja, Mis inscripciones queda vacía y el cupo de la comisión vuelve al valor original |
+| TC-14 | F2 | Materia ya aprobada (RF-06) | Buscando una materia que el alumno ya aprobó (ej. "Matemática") se muestra "No se encontraron materias" y la lista queda vacía |
 
 Criterios generales:
 
@@ -69,3 +70,25 @@ Criterios generales:
 | Timeouts | 30 s por test, 5 s por aserción |
 | Reintentos | 0 en local, 2 en CI |
 | Evidencia | Reporte HTML siempre. Trace en el primer reintento. Captura y video solo si el test falla |
+
+## 5. Resultados
+
+### Integración continua
+
+Cada `push` o Pull Request a `main` dispara el workflow [`.github/workflows/playwright.yml`](../.github/workflows/playwright.yml): instala dependencias y navegadores, corre la suite completa (Chromium, Firefox, WebKit y mobile) y:
+
+- Anota los fallos directamente en la pestaña **Checks** del commit/PR (reporter `github` de Playwright).
+- Sube el reporte HTML y los `test-results/` (trazas, capturas, videos de fallos) como artifacts del run, en la pestaña **Actions → [run] → Artifacts**.
+- Publica el reporte HTML en **GitHub Pages**, para tener siempre a mano la última corrida sin tener que descargar nada:
+
+  **URL del reporte:** _completar con la URL de Pages (`https://<usuario>.github.io/<repo>/`) después del primer deploy_.
+
+### Evidencia
+
+- **Reporte HTML**: generado en `playwright-report/` en cada corrida (local o CI); se abre con `npm run report` o desde el link de Pages de arriba.
+- **Trace Viewer**: se graba en el primer reintento (`trace: 'on-first-retry'`). Para un fallo en CI, se baja el trace del artifact `test-results` y se abre arrastrándolo en [trace.playwright.dev](https://trace.playwright.dev) (no requiere instalar nada local) o con `npx playwright show-trace <archivo>.zip`.
+- **Regresión visual**: TC-07 incluye una captura (`toHaveScreenshot`) de la lista de materias filtrada por 4° cuatrimestre. El reporte HTML muestra el diff esperado/actual si algo cambia visualmente.
+
+  > La imagen base se genera en el mismo sistema donde se compara. Si se corre `--update-snapshots` en Windows/macOS localmente y después se compara en el runner de CI (Ubuntu), puede fallar por diferencias de renderizado de fuentes aunque la UI esté bien — no es un bug de la app. Conviene generar la imagen base corriendo la suite dentro del contenedor oficial de Playwright (mismo SO que usa CI) o dejar que la primera corrida en CI falle, bajar la captura que generó y commitearla como base.
+
+- **Corrida de referencia**: _completar con el link al run de Actions de la entrega final (Actions → seleccionar el run → copiar URL) una vez hecho el último push antes de entregar_.
