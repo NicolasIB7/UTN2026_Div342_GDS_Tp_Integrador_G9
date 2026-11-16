@@ -27,8 +27,8 @@ export class InscripcionesPage extends BasePage {
 
   async darDeBaja(materia: string) {
     const boton = this.inscripcion(materia).getByRole('button', { name: 'Dar de baja' });
-    await boton.click();
+    await (await this.elemento(boton, `botón "Dar de baja" de ${materia}`)).click();
     const confirmar = this.dialogoBaja.getByRole('button', { name: 'Confirmar baja' });
-    await confirmar.click();
+    await (await this.elemento(confirmar, 'botón que confirma la baja en el diálogo')).click();
   }
 }

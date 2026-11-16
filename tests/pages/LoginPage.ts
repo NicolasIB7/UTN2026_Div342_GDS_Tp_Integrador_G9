@@ -22,8 +22,13 @@ export class LoginPage extends BasePage {
   }
 
   async ingresar(legajo: string, password: string) {
-    await this.campoLegajo.fill(legajo);
-    await this.campoPassword.fill(password);
-    await this.botonIngresar.click();
+    await (await this.elemento(this.campoLegajo, 'campo de texto del legajo')).fill(legajo);
+    await (await this.elemento(this.campoPassword, 'campo de la contraseña')).fill(password);
+    await this.presionarIngresar();
+  }
+
+  /** Click en "Ingresar" sin completar nada (TC-03); también pasa por el self-healing. */
+  async presionarIngresar() {
+    await (await this.elemento(this.botonIngresar, 'botón para ingresar al sistema')).click();
   }
 }

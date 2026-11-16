@@ -60,3 +60,28 @@ playwright.config.ts
 
 La spec completa, con los criterios de aceptación de cada caso, está en [docs/SPEC.md](docs/SPEC.md).
 
+## Self-healing de locators (opcional)
+
+Si un locator deja de encontrar su elemento (por un cambio de texto o de rol), el módulo puede consultar un LLM (Gemini o Anthropic) y proponer uno nuevo. Las aserciones no se tocan. En CI queda siempre apagado (GitHub Actions define `CI=true` y el módulo no llama al modelo). Los valores de los campos de texto se tapan como `[REDACTADO]` antes de mandar la página al modelo.
+
+El repo incluye un `.env` listo para usar. También podés copiar `.env.example` y completar tu propia key.
+
+En `SELF_HEALING` elegís el modo:
+
+- `0` — apagado (los tests se comportan como siempre)
+- `1` — repara el locator roto y sigue el test (queda anotado en el reporte)
+- `sugerir` — solo registra la propuesta en el reporte y en `self-healing/propuestas.jsonl`; el test falla igual
+
+Para probar el módulo sin la app y sin gastar la API (el modelo se simula):
+
+```bash
+npm run test:demo
+```
+
+Para verlo con la app, cambiá el texto del botón "Ingresar" en `src/pages/Login.jsx` y corré:
+
+```bash
+npx playwright test tests/login.spec.ts --project=chromium --workers=1
+```
+
+En el reporte HTML, los tests reparados muestran una anotación **self-healing** con el locator original y el propuesto.

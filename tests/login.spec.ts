@@ -22,7 +22,7 @@ test.describe('F1 - Autenticación', () => {
   });
 
   test('TC-03 pide completar legajo y contraseña', async ({ page, loginPage }) => {
-    await loginPage.botonIngresar.click();
+    await loginPage.presionarIngresar();
 
     await expect(loginPage.error).toHaveText('Completá el legajo y la contraseña');
     await expect(page).toHaveURL(/\/login$/);

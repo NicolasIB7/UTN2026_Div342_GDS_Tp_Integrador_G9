@@ -10,7 +10,8 @@
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --project=chromium --headed",
-    "report": "playwright show-report"
+    "report": "playwright show-report",
+    "test:demo": "playwright test -c playwright.demo.config.ts"
   },
   "dependencies": {
     "react": "^19.2.0",
@@ -21,6 +22,7 @@
     "@playwright/test": "^1.56.0",
     "@types/node": "^22.0.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "dotenv": "^17.4.2",
     "vite": "^7.1.0"
   }
 }
